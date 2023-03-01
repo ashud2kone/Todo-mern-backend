@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 const api_base = 'http://localhost:3001';
-const PORT = process.env.PORT || 3001;
+
 
 function App() {
 	const [todos, setTodos] = useState([]);
@@ -13,13 +13,13 @@ function App() {
 
 	const GetTodos = () => {
 		fetch(api_base + '/todos')
-			.then(res => res.json())
-			.then(data => setTodos(data))
+			.then((res) => res.json())
+			.then((data) => setTodos(data))
 			.catch((err) => console.error("Error: ", err));
-	}
+	};
 
 	const completeTodo = async id => {
-		const data = await fetch(api_base + '/todo/complete/' + id).then(res => res.json());
+		const data = await fetch(api_base + '/todos/complete/' + id).then(res => res.json());
 
 		setTodos(todos => todos.map(todo => {
 			if (todo._id === data._id) {
@@ -49,7 +49,7 @@ function App() {
 	}
 
 	const deleteTodo = async id => {
-		const data = await fetch(api_base + '/todo/delete/' + id, { method: "DELETE" }).then(res => res.json());
+		const data = await fetch(api_base + '/todos/delete/' + id, { method: "DELETE" }).then(res => res.json());
 
 		setTodos(todos => todos.filter(todo => todo._id !== data.result._id));
 	}
@@ -82,7 +82,7 @@ function App() {
 				<div className="popup">
 					<div className="closePopup" onClick={() => setPopupActive(false)}>X</div>
 					<div className="content">
-						<h3>Add Task</h3>
+						<h3>Add Task </h3>
 						<input type="text" className="add-todo-input" onChange={e => setNewTodo(e.target.value)} value={newTodo} />
 						<div className="button" onClick={addTodo}>Create Task</div>
 					</div>
@@ -97,43 +97,4 @@ export default App;
 
 
 
-// // import './App.css';
-// import { useState, useEffect } from "react";
-// const API_BASE = "http://localhost:3004";
 
-// function App() {
-//   const [todos, setTodos] = useState([]);
-//   const [popupActive, setPopupactive] = useState(false);
-//   const [newTodo, setNewTodo] = useState("");
-// 	useEffect(() => {
-// 		GetTodos();
-// 	}, [])
-
-// 	const GetTodos = () => {
-// 		fetch(API_BASE) + "/todos")
-// 			.then((res) => res.json())
-// 			.then((data) => setTodos(data))
-// 			.catch((err) => console.error("Error: ", err));
-// 	};
-
-//   return (
-//     <div className="App">
-//       <h1>Welcome Ashutosh</h1>
-//       <h3>Tasks</h3>
-//       <div className="todos">
-//       {todos.map(todo=>(
-//         <div className={"todo"+(todo.complete ?"is-complete":"")} key={todo._id}>
-//         <div className="checkbox"></div>
-//         <div className="text">{todo.text}</div>
-//         <div className="delete-todo">X</div>
-//       </div>
-//       ))}
-        
-
-        
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default App;
