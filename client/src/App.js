@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 const api_base = 'http://localhost:3001';
+const PORT = process.env.PORT || 3001;
 
 
 function App() {
